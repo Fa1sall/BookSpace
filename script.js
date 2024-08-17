@@ -3,7 +3,8 @@ const myLibrary = [
     name: 'harry potter',
     author: 'j.k. rowling',
     pages: 250,
-    readStatus: true
+    readStatus: true,
+    id:0
   },
   {
     name: 'it ends with us',
@@ -24,6 +25,7 @@ function Book(name,author,pages,readStatus){
   this.author = author;
   this.pages = pages;
   this.readStatus = readStatus;
+  this.id = 0;
 }
 
 function addBookToLibrary(){
@@ -34,7 +36,6 @@ function addBookToLibrary(){
   const book = new Book(name,author,pages,readStatus);
   myLibrary.push(book);
 }
-
 
 
 function createBook(book){
@@ -68,7 +69,25 @@ function createBook(book){
   removeImg.src="./assets/delete.svg";
   pages.textContent = 'Pages: ' + book.pages;
   readToggle.setAttribute("type", "checkbox");
-  readText.textContent = book.readStatus;
+  
+  //Checkbox Toggle Logic
+  if(book.readStatus==false){
+    readText.textContent = 'Unread';
+    readToggle.checked=false;
+  } else {
+    readText.textContent = 'Read';
+    readToggle.checked=true;
+  }
+
+  readToggle.addEventListener('click',()=>{
+    if(readToggle.checked==true){
+      book.readStatus=true;
+      readText.textContent = 'Read';
+    } else {
+      book.readStatus=false;
+      readText.textContent = 'Unread';
+    }
+   });
 
   //Appending Child Elements
   readSection.appendChild(readToggle);
@@ -81,6 +100,7 @@ function createBook(book){
   bookCard.appendChild(authorName);
   bookCard.appendChild(controls);
 
+  //Appending Book Card to Grid
   booksGrid.appendChild(bookCard);
 }
 
