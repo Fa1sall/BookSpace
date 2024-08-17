@@ -5,9 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BookSpace</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="./assets/book.png">
 </head>
 <body>
+    <div class="header">
+        <div class="header-container">
+            <div class="logo">
+                <img class="logo-img" src="./assets/favicon.png" alt="BookSpace-logo">
+                <div class="title">BookSpace</div>
+            </div>
+            <button id="add-button" onclick="toggleOverlay()">
+                <span>Add</span>
+                <img class="plus-icon" src="./assets/plus-circle.svg" alt="add-books">
+         </button>
+         
+        </div>
+    </div>
+    <div class="main">
+        <div id="books-grid">
+            <div class="book">
+                <h1 class="book-name">Harry Potter</h1>
+                <p class="author-name">J.K Rowling</p>
+                <div class="controls">
+                    <button class="ctrl-button"><img src="./assets/delete.svg" alt="delete"></button>
+                    <div class="pages">Pages: 200</div>
+                    <div class="read-section">
+                        <input class="read-toggle" type="checkbox" name="Read">
+                        <div class="readStatus">Unread</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="overlay">
+                <form class="overlay-content">
+                  <label for="name">Book Name</label>
+                  <input type="text" id="bookName" name="name">
+                  <label for="author">Author</label>
+                  <input type="text" id="authorName" name="author">
+                  <label for="pages">Pages</label>
+                  <input type="number" name="pages" id="pages">
+                  <div class="readSection">
+                      <label for="read">Have you read the book?</label>
+                      <input type="checkbox" id="readStatus">
+                  </div>
+                  <button id="submit-btn" type="submit">Submit</button>
+                </form>
+              </div> 
+        </div>
+    </div>
     <script src="script.js"></script>
-    
 </body>
 </html>
+
