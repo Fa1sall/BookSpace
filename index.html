@@ -14,17 +14,17 @@
                 <img class="logo-img" src="./assets/favicon.png" alt="BookSpace-logo">
                 <div class="title">BookSpace</div>
             </div>
-            <button id="add-button" onclick="toggleOverlay()">
+            <button id="add-button" onclick="toggleDialog()">
                 <span>Add</span>
                 <img class="plus-icon" src="./assets/plus-circle.svg" alt="add-books">
-         </button>
-         
+         </button>  
         </div>
     </div>
     <div class="main">
         <div id="books-grid">
             <div class="book">
-                <h1 class="book-name">Harry Potter</h1>
+                <h1 class="book-name">Harry Potter and the philosopher's stone</h1>
+                <img class="book-cover" src="https://th.bing.com/th/id/OIP.1wAGWqBxIOOiaDVoPFe6gAHaLF?rs=1&pid=ImgDetMain">
                 <p class="author-name">J.K Rowling</p>
                 <div class="controls">
                     <button class="ctrl-button"><img src="./assets/delete.svg" alt="delete"></button>
@@ -35,23 +35,26 @@
                     </div>
                 </div>
             </div>
-            
-            <div id="overlay">
-                <form class="overlay-content">
-                  <label for="name">Book Name</label>
-                  <input type="text" id="bookName" name="name">
-                  <label for="author">Author</label>
-                  <input type="text" id="authorName" name="author">
-                  <label for="pages">Pages</label>
-                  <input type="number" name="pages" id="pages">
-                  <div class="readSection">
-                      <label for="read">Have you read the book?</label>
-                      <input type="checkbox" id="readStatus">
-                  </div>
-                  <button id="submit-btn" type="submit">Submit</button>
-                </form>
-              </div> 
         </div>
+
+        <dialog id="bookDialog">
+            <form class="bookForm">
+                <label for="name">Book Name</label>
+                <input type="text" id="bookName" name="name">
+                <label for="author">Author</label>
+                <input type="text" id="authorName" name="author">
+                <label for="pages">Pages</label>
+                <input type="number" name="pages" id="pages">
+                <div class="isRead">
+                    <label for="read">Have you read the book?</label>
+                    <input type="checkbox" id="readStatus">
+                </div>
+                <div class="form-btns">
+                    <button id="submit-btn" type="submit">Submit</button>
+                    <button id="cancel-btn" type="button">Cancel</button>
+                </div>
+              </form>
+        </dialog>
     </div>
     <script src="script.js"></script>
 </body>
