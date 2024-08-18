@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Edu+VIC+WA+NT+Beginner:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=New+Amsterdam&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Yatra+One&display=swap');
-
-/*CSS Reset*/
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=New+Amsterdam&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Yatra+One&display=swap');
+/*Josh Comeau CSS Reset*/
 /*
   1. Use a more-intuitive box-sizing model.
 */
@@ -10,7 +10,7 @@
   /*
     2. Remove default margin
   */
-  * {
+  body, h1, p{
     margin: 0;
   }
   /*
@@ -89,6 +89,8 @@ button:active{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    padding-left: 3.5%;
+    padding-right: 5%;
 }
 
 .logo{
@@ -113,9 +115,9 @@ button:active{
   border: 1.8px solid var(--color-950);
   letter-spacing: 0.1em;
   font-weight: 600;
+  font-size: 1.2rem;
+  width: 4rem;
 }
-
-
 
 #books-grid{
   display: grid;
@@ -134,92 +136,118 @@ button:active{
   background-color: #fce7f3;
   border: 2px solid black;
   border-radius: 0.5rem;
-  gap: 70px;
-  width: 280px;
+  min-width: 280px;
+  width: 80%;
+  height: 100%;
+  min-height: fit-content;
+  gap: 0.5rem;
   line-height: 1.2;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.book-name, .author, .controls{
+.book-cover{
+  height: 280px;
+  width: 200px;
+}
+
+.book-name, .author-name, .controls{
   flex:1;
+}
+
+.book-name{
+  font-family: "Lexend";
+  font-size: 1.5rem;
+  text-align: center;
+  background-color:#262626;
+  color:#fafafa;
+  padding-top: 0.2rem;
+  padding-bottom: 0.5rem;
+  width: 100%;
+  min-height:70px;
+}
+
+.author-name{
+  font-size: 1.4rem;
+  font-weight: 500;
 }
 
 .controls{
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   gap: 2rem;
 }
 
 .ctrl-button{
-  width: 2.2rem;
+  width: 2.5rem;
   border: none;
+  background-color: transparent;
+}
+
+.ctrl-button:hover{
+  filter: invert(19%) sepia(79%) saturate(3284%) hue-rotate(350deg) brightness(93%) contrast(92%);
 }
 
 .read-section{
   display: flex;
+  align-items: center;
 }
 
-#overlay{
-  position: fixed;
-  display: none;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0,0,0,0.5);
-  top: 0;
-  left: 0;
-  z-index: 3;
-  cursor: pointer;
+#readStatus, .read-toggle{
+  height: 20px;
+  width: 30px;
 }
 
+/*Book Dialog Styles*/
 
-label{
-  font-weight: bold;
+#bookDialog{
+  padding: 0;
+  border-radius: 0.8rem;
+  width: 300px;
+  height: 350px;
 }
 
-input{
-  font-size: 0.9rem;
+#bookDialog::backdrop{
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
-.overlay-content{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.bookForm{  
   display: flex;
   flex-direction: column;
   row-gap: 10px;
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
+  align-content: center;
   background-color: #3b0764;
   color: #faf5ff;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   padding: 2rem;
-  border-radius: 0.5rem;
+  height: 100%;
+  width: 100%;
 }
 
-.readSection{
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  align-items: center;
+.form-btns{
+  margin-top:2%;
 }
 
-#readStatus{
-  height: 30px;
-  width: 20px;
-}
-
-#submit-btn{
+#submit-btn,#cancel-btn{
   width: 6em;
-  margin-top: 0.4em;
   align-self: center;
   border-radius: 4rem;
 }
 
 @media only screen and (max-width: 600px) {
+  .header-container{
+    padding-right: 1rem;
+  }
+
+  #add-button{
+    width: 3rem;
+  }
+
   .books-grid{
     row-gap: 2.8rem;
   }
+
 }
