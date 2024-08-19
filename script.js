@@ -122,10 +122,6 @@ function createBookCard(book){
   });
 }
 
-function updateBookId(){
-  
-}
-
 function createBooks(myLibrary,index){
   booksGrid.innerHTML = ''; //Clear Grid
   for(i=index;i<myLibrary.length;i++){
@@ -183,7 +179,9 @@ bookForm.addEventListener('submit', function(event) {
   //Creating New Book
   const book = new Book(bookName,authorName,pages,isRead,urlValue,index);
   addBookToLibrary(book);
-  createBooks(myLibrary,myLibrary.length-1);
+
+  //Display added book
+  createBooks(myLibrary,0);
 
   console.log(JSON.stringify(book));
   
