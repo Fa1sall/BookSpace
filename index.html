@@ -22,31 +22,22 @@
     </div>
     <div class="main">
         <div id="books-grid">
-            <div class="book">
-                <h1 class="book-name">Harry Potter and the philosopher's stone</h1>
-                <img class="book-cover" src="https://th.bing.com/th/id/OIP.1wAGWqBxIOOiaDVoPFe6gAHaLF?rs=1&pid=ImgDetMain">
-                <p class="author-name">J.K Rowling</p>
-                <div class="controls">
-                    <button class="ctrl-button"><img src="./assets/delete.svg" alt="delete"></button>
-                    <div class="pages">Pages: 200</div>
-                    <div class="read-section">
-                        <input class="read-toggle" type="checkbox" name="Read">
-                        <div class="readStatus">Unread</div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
 
         <dialog id="bookDialog">
-            <form class="bookForm">
-                <label for="name">Book Name</label>
-                <input type="text" id="bookName" name="name">
-                <label for="author">Author</label>
-                <input type="text" id="authorName" name="author">
-                <label for="pages">Pages</label>
-                <input type="number" name="pages" id="pages">
+            <form id="bookForm">
+                <h1>Add a new Book</h1>
+                <label for="name">Book Name <p class="required">*</p></label>
+                <input type="text" id="bookName" name="name" required>
+                <label for="author">Author <p class="required">*</p></label>
+                <input type="text" id="authorName" name="author" required>
+                <label for="pages">Pages <p class="required">*</p></label>
+                <input type="number" name="pages" id="pages" required>
+                <label for="book-url">Book Cover URL</label>
+                <input type="text" name="book-url" id="book-url">
                 <div class="isRead">
-                    <label for="read">Have you read the book?</label>
+                    <label for="read">Have you read this book?</label>
                     <input type="checkbox" id="readStatus">
                 </div>
                 <div class="form-btns">
@@ -56,7 +47,7 @@
               </form>
         </dialog>
     </div>
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
 
