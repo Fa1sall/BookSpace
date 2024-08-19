@@ -1,49 +1,52 @@
 const myLibrary = [
   {
-    name: 'harry potter',
-    author: 'j.k. rowling',
+    name: `Harry Potter and the philosopher's stone`,
+    author: 'J.K. Rowling',
     pages: 250,
     readStatus: true,
-    id:0
+    bookurl: "https://i2-prod.walesonline.co.uk/incoming/article6890072.ece/ALTERNATES/s615b/hp1.jpg",
   },
   {
-    name: 'it ends with us',
-    author: 'colleen hoover',
-    pages: 300,
-    readStatus: false
+    name: 'It Ends With Us',
+    author: 'Colleen Hoover',
+    pages: 381,
+    readStatus: false,
+    bookurl: "https://th.bing.com/th/id/OIP.QEXFbbWxQDT9BPUDq3qC_gAAAA?rs=1&pid=ImgDetMain",
   },
   {
-    name: 'Wings of fire',
-    author: 'abdul kalam',
+    name: 'The Perks of Being a WallFlower',
+    author: 'Stephen Chbosky',
     pages: 150,
-    readStatus: false
+    readStatus: false,
+    bookurl: "https://th.bing.com/th/id/OIP.R9b1ML6HlpWfNlXX6Iq9tAAAAA?rs=1&pid=ImgDetMain",
   }
 ];
 
-function Book(name,author,pages,readStatus){
+indexCounter = 0;
+function generateIndex(){
+  return indexCounter++;
+}
+
+function Book(name,author,pages,readStatus,bookurl,index){
   this.name = name;
   this.author = author;
   this.pages = pages;
   this.readStatus = readStatus;
-  this.id = 0;
+  this.bookurl = bookurl;
+  this.index = index;
 }
 
-function addBookToLibrary(){
-  const name = prompt("Enter name of the book:");
-  const author = prompt("Enter author name:");
-  const pages = prompt("Enter number of pages: ");
-  const readStatus = false;
-  const book = new Book(name,author,pages,readStatus);
+function addBookToLibrary(book){
   myLibrary.push(book);
 }
 
-
-function createBook(book){
-  const booksGrid = document.getElementById('books-grid');
+const booksGrid = document.getElementById('books-grid');
+function createBookCard(book){
   //Creating DOM Variables
   const bookCard = document.createElement('div');
   const bookName = document.createElement('h1');
   const authorName = document.createElement('p');
+  const bookCover = document.createElement('img');
   const controls = document.createElement('div');
   const ctrlbutton = document.createElement('button');
   const removeImg = document.createElement('img');
@@ -56,6 +59,7 @@ function createBook(book){
   bookCard.classList.add('book');
   bookName.classList.add('book-name');
   authorName.classList.add('author-name');
+  bookCover.classList.add('book-cover');
   controls.classList.add('controls');
   ctrlbutton.classList.add('ctrl-button');
   pages.classList.add('pages');
@@ -66,9 +70,15 @@ function createBook(book){
   //Adding Content
   bookName.textContent = book.name;
   authorName.textContent = book.author;
+  bookCover.src = book.bookurl;
   removeImg.src="./assets/delete.svg";
   pages.textContent = 'Pages: ' + book.pages;
   readToggle.setAttribute("type", "checkbox");
+
+  //Adding BookID Data Attribute
+  const bookIndex = generateIndex();
+  bookCard.dataset.bookId = bookIndex;
+  ctrlbutton.dataset.bookId = bookIndex;
   
   //Checkbox Toggle Logic
   if(book.readStatus==false){
@@ -97,22 +107,87 @@ function createBook(book){
   controls.appendChild(pages);
   controls.appendChild(readSection);
   bookCard.appendChild(bookName);
+  bookCard.appendChild(bookCover);
   bookCard.appendChild(authorName);
+
   bookCard.appendChild(controls);
 
   //Appending Book Card to Grid
   booksGrid.appendChild(bookCard);
+
+  //Event listener to remove Book 
+  ctrlbutton.addEventListener('click',function removeBook(bookIndex){
+    myLibrary.splice(Number(bookIndex),1); //Remove book from array
+    createBooks(myLibrary,0);
+  });
 }
 
-function displayBooks(){
-  for(i=0;i<myLibrary.length;i++){
-    createBook(myLibrary[i]);
+function updateBookId(){
+  
+}
+
+function createBooks(myLibrary,index){
+  booksGrid.innerHTML = ''; //Clear Grid
+  for(i=index;i<myLibrary.length;i++){
+    createBookCard(myLibrary[i]);
   }
 }
 
-displayBooks();
+createBooks(myLibrary,0); //Initial Display
 
-function toggleOverlay() {
-  const overlay = document.getElementById('overlay');
-  overlay.style.display = (overlay.style.display === 'block') ? 'none' : 'block';
+/////////////////////////////
+/// Dialog Box Functions////
+///////////////////////////
+const dialogBox = document.getElementById('bookDialog');
+const bookForm = document.getElementById('bookForm');
+const cancelBtn = document.getElementById('cancel-btn'); 
+
+//Toggle Dialogbox
+function toggleDialog(){
+  dialogBox.showModal();
 }
+
+//Close Dialogbox & Reset Form
+cancelBtn.addEventListener('click',e=>{
+  e.preventDefault();
+  dialogBox.close();
+  bookForm.reset();
+});
+
+//Close on click on the outside
+dialogBox.addEventListener("click", e => {
+  const dialogDimensions = dialogBox.getBoundingClientRect()
+  if (
+    e.clientX < dialogDimensions.left ||
+    e.clientX > dialogDimensions.right ||
+    e.clientY < dialogDimensions.top ||
+    e.clientY > dialogDimensions.bottom
+  ) {
+    dialogBox.close();
+  }
+})
+
+//Form Submission Handling
+bookForm.addEventListener('submit', function(event) {
+  event.preventDefault(); //prevent default http send request & refresh
+  
+  //Form Data
+  const bookName = document.getElementById('bookName').value;
+  const authorName = document.getElementById('authorName').value;
+  const pages = document.getElementById('pages').value;
+  const bookUrl = document.getElementById('book-url');
+  const urlValue = (bookUrl.value=="") ? './assets/sample-book.png': bookUrl.value;
+  const isRead = document.getElementById('readStatus').checked;
+  const index = generateIndex();
+
+  //Creating New Book
+  const book = new Book(bookName,authorName,pages,isRead,urlValue,index);
+  addBookToLibrary(book);
+  createBooks(myLibrary,myLibrary.length-1);
+
+  console.log(JSON.stringify(book));
+  
+  dialogBox.close();
+  bookForm.reset();
+});
+
