@@ -27,13 +27,13 @@ button:active{
   transform: scale(0.95);
 }
 
-
 .header{
   background-color: var(--color-800);
   font-family: "New Amsterdam";
   color: var(--color-100);
   letter-spacing: 0.1em;
   padding: 0.5rem 0rem 0.5rem 0rem;
+  width: 100%;
 }
 
   
@@ -101,7 +101,6 @@ button:active{
 
 .book:hover {
   transform: scale(0.98);
-  cursor: pointer;
 }
 
 .book-cover{
@@ -142,7 +141,7 @@ button:active{
   gap: 1rem;
   width: 100%;
   background-color: rgb(213, 213, 213);
-  margin-bottom: 0.13rem;
+  
 }
 
 .ctrl-button{
@@ -221,7 +220,7 @@ label{
 }
 
 .required{
-  color: red;
+  color: rgb(182, 24, 24);
 }
 
 input[type="text"],input[type="number"],#submit-btn,#cancel-btn{
@@ -247,6 +246,11 @@ input[type="text"]:focus{
   align-self: center;
 }
 
+#readStatus{
+  width: 20px;
+  height: 20px;
+}
+
 .form-btns{
   margin-top:2%;
   display: flex;
@@ -257,7 +261,18 @@ input[type="text"]:focus{
   width: 6em;
   align-self: center;
   border-radius: 4rem;
-  
+  font-weight: 700;
+  font-family: 'Poppins';
+  transition: background-color 0.9s;
+}
+
+#submit-btn:hover,
+#submit-btn:focus {
+  background-color: #4ade80;
+}
+
+#cancel-btn:hover{
+  background-color: #f87171;
 }
 
 @media only screen and (max-width: 600px) {
