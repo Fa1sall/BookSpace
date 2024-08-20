@@ -27,13 +27,12 @@ function generateIndex(){
   return indexCounter++;
 }
 
-function Book(name,author,pages,readStatus,bookurl,index){
+function Book(name,author,pages,readStatus,bookurl){
   this.name = name;
   this.author = author;
   this.pages = pages;
   this.readStatus = readStatus;
   this.bookurl = bookurl;
-  this.index = index;
 }
 
 function addBookToLibrary(book){
@@ -114,22 +113,53 @@ function createBookCard(book){
 
   //Appending Book Card to Grid
   booksGrid.appendChild(bookCard);
+  updateBookId();
 
   //Event listener to remove Book 
-  ctrlbutton.addEventListener('click',function removeBook(bookIndex){
-    myLibrary.splice(Number(bookIndex),1); //Remove book from array
+  ctrlbutton.addEventListener('click',function removeBook(){
+    //Remove book from Library array
+    myLibrary.splice(Number(bookCard.dataset.bookId),1);
+    console.log(`book-${Number(bookCard.dataset.bookId)} removed`);
+
+    //Remove book from DOM
+    const targetBook = document.querySelector(`div[data-book-id="${bookIndex}"]`);
+    if(targetBook){
+      targetBook.remove();
+    }
+
+    for(book of myLibrary){
+      console.log(book);
+    }
+    updateBookId();
     createBooks(myLibrary,0);
   });
 }
 
+//Update bookId Data Attribute
+function updateBookId(){
+  const books = document.querySelectorAll('div[data-book-id]');
+  const buttons = document.querySelectorAll('button[data-book-id]');
+  indexBooks = 0;
+  indexButtons = 0;
+  for(x of books){
+    x.dataset.bookId = indexBooks;
+    indexBooks++;
+  }
+  for(x of buttons){
+    x.dataset.bookId = indexButtons;
+    indexButtons++;
+  }
+}
+
 function createBooks(myLibrary,index){
-  booksGrid.innerHTML = ''; //Clear Grid
+  booksGrid.innerHTML='';
   for(i=index;i<myLibrary.length;i++){
     createBookCard(myLibrary[i]);
   }
 }
 
 createBooks(myLibrary,0); //Initial Display
+console.log('Library Initialized');
 
 /////////////////////////////
 /// Dialog Box Functions////
@@ -174,13 +204,12 @@ bookForm.addEventListener('submit', function(event) {
   const bookUrl = document.getElementById('book-url');
   const urlValue = (bookUrl.value=="") ? './assets/sample-book.png': bookUrl.value;
   const isRead = document.getElementById('readStatus').checked;
-  const index = generateIndex();
 
   //Creating New Book
-  const book = new Book(bookName,authorName,pages,isRead,urlValue,index);
+  const book = new Book(bookName,authorName,pages,isRead,urlValue);
   addBookToLibrary(book);
 
-  //Display added book
+  //Display added books
   createBooks(myLibrary,0);
 
   console.log(JSON.stringify(book));
